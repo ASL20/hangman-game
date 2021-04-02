@@ -1,3 +1,5 @@
+require 'colorize'
+
 class ConsoleInterface
   # содержит все файлы из папки figures, помещённые в массив
   FIGURES =
@@ -15,17 +17,17 @@ class ConsoleInterface
   #выводит в консоль текущее состояние игры
   def print_out
     puts <<~END
-      Слово: #{word_to_show}
-      #{figure}
-      Ошибки (#{@game.errors_made}): #{errors_to_show}
+      #{"Слово: #{word_to_show}".colorize(:light_blue)}
+      #{figure.colorize(:yellow)}
+      #{"Ошибки (#{@game.errors_made}): #{errors_to_show}".colorize(:red)}
       У вас осталось ошибок: #{@game.errors_allowed}
 
     END
 
     if @game.won?
-      puts "Поздравляем, вы выиграли!"
+      puts "Поздравляем, вы выиграли!".colorize(:green)
     elsif @game.lost?
-      puts "Вы проиграли, загаданное слово: #{@game.word}"
+      puts "Вы проиграли, загаданное слово: #{@game.word}".colorize(:red)
     end
   end
 
@@ -57,8 +59,7 @@ class ConsoleInterface
     @game.errors.join(", ")
   end
 
-  # получает букву из пользовательского ввода, приводит её к верхнему регистру
-  # и возвращает её
+  # получает букву из пользовательского ввода и приводит её к верхнему регистру
   def get_input
     print "Введите следующую букву: "
     letter = gets[0].upcase
