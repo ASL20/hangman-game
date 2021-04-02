@@ -45,12 +45,14 @@ class Game
     errors_allowed == 0
   end
 
+  # заменяет при вводе Й-Ё на И-Е, чтобы они считались за одну букву
   def normalize_letter(letter)
     letter = "И" if letter == "Й"
     letter = "Е" if letter == "Ё"
     letter
   end
 
+  # приводит Й-Ё в массиве с буквами к И-Е
   def normalized_letters
     @letters.map { |letter| normalize_letter(letter) }
   end
